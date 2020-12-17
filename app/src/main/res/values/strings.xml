@@ -3,4 +3,5 @@
     <string name="api_connection_error">Connection error. Please, try again later!</string>
     <string name="placeholder_text">TextView</string>
     <string name="movie_release_date_format">yyyy-MM-dd</string>
+    <string name="api_server_error">Server not responding correctly. Please, try again later!</string>
 </resources>

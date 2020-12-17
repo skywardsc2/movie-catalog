@@ -28,10 +28,9 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
 
     private OnMovieListener onMovieListener;
 
-    public MovieOverviewAdapter(Context context, List<MovieOverview> movieOverviewList, OnMovieListener onMovieListener) {
+    public MovieOverviewAdapter(Context context, OnMovieListener onMovieListener) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.movieOverviewList = movieOverviewList;
         this.onMovieListener = onMovieListener;
     }
 
@@ -58,7 +57,8 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
 
         @Override
         public void onClick(View v) {
-            onMovieListener.onMovieClick(getAdapterPosition());
+            int movieId = adapter.movieOverviewList.get(getAdapterPosition()).id;
+            onMovieListener.onMovieClick(movieId);
         }
     }
 
@@ -114,6 +114,6 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
     }
 
     public interface OnMovieListener{
-        void onMovieClick(int position);
+        void onMovieClick(int movieId);
     }
 }

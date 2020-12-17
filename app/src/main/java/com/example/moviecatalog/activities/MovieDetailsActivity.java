@@ -1,6 +1,7 @@
 package com.example.moviecatalog.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,9 @@ import com.example.moviecatalog.models.MovieDetails;
 import com.example.moviecatalog.models.MovieOverview;
 import com.example.moviecatalog.network.MoviesApiInterface;
 import com.example.moviecatalog.network.MoviesApiService;
+import com.example.moviecatalog.viewmodels.MovieDetailsViewModel;
+import com.example.moviecatalog.viewmodels.MovieDetailsViewModelFactory;
+import com.example.moviecatalog.viewmodels.MovieOverviewListViewModel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +32,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MovieDetailsActivity extends AppCompatActivity {
+    private MovieDetailsViewModel movieViewModel;
+
     private ActivityMovieDetailsBinding binding;
     private ProgressBar progressBar;
 
@@ -44,20 +50,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         progressBar = binding.movieDetailsProgressBar;
         progressBar.setVisibility(View.VISIBLE);
 
-        MoviesApiInterface moviesApi = MoviesApiService.getRetrofitInstance().create(MoviesApiInterface.class);
-        moviesApi.getMovieDetails(movieId).enqueue(new Callback<MovieDetails>() {
-            @Override
-            public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
-                progressBar.setVisibility(View.GONE);
-                if (response.body() != null) {
-                    updateLayout(response.body());
-                }
-            }
+        movieViewModel = new ViewModelProvider(this, new MovieDetailsViewModelFactory(this.getApplication(), movieId)).get(MovieDetailsViewModel.class);
 
-            @Override
-            public void onFailure(Call<MovieDetails> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), R.string.api_connection_error, Toast.LENGTH_SHORT).show();
+        movieViewModel.getMovieDetails().observe(this, movieDetails -> {
+            switch(movieDetails.status){
+                case NETWORK_ERROR:
+                    Toast.makeText(this, R.string.api_connection_error, Toast.LENGTH_LONG).show();
+                    break;
+                case SERVER_ERROR:
+                    Toast.makeText(this, R.string.api_server_error, Toast.LENGTH_LONG).show();
+                    break;
+                case SUCCESS:
+                    progressBar.setVisibility(View.GONE);
+                    if (movieDetails.data != null) {
+                        updateLayout(movieDetails.data);
+                    }
+                    break;
+                default:
+                    break;
             }
         });
     }
@@ -78,10 +88,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         binding.movieDetailsContent.detailsMovieVoteAverageView.setText(String.format(Locale.US, "%.2f", movieDetails.voteAverage));
 
-        binding.movieDetailsContent.detailsMovieVoteCount.setText(String.format("(%d)", movieDetails.voteCount));
+        binding.movieDetailsContent.detailsMovieVoteCount.setText(String.format(Locale.US, "(%d)", movieDetails.voteCount));
 
         binding.movieDetailsContent.detailsMovieWebsiteText.setText(movieDetails.website);
 
-        binding.movieDetailsContent.detailsMovieDurationText.setText(String.format("%d min", movieDetails.duration));
+        binding.movieDetailsContent.detailsMovieDurationText.setText(String.format(Locale.US, "%d min", movieDetails.duration));
     }
 }
