@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:showIn="@layout/activity_movie_details">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0A000000">
+
+            <ImageView
+                android:id="@+id/details_movie_poster_view"
+                android:layout_width="60dp"
+                android:layout_height="90dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_poster_loading" />
+
+            <TextView
+                android:id="@+id/details_movie_title_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/placeholder_text"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/details_movie_poster_view"
+                app:layout_constraintTop_toTopOf="@+id/details_movie_poster_view" />
+
+            <TextView
+                android:id="@+id/details_movie_release_year_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/placeholder_text"
+                app:layout_constraintStart_toStartOf="@+id/details_movie_title_view"
+                app:layout_constraintTop_toBottomOf="@+id/details_movie_title_view" />
+
+            <ImageView
+                android:id="@+id/details_movie_vote_average_star_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/details_movie_poster_view"
+                app:layout_constraintStart_toStartOf="@+id/details_movie_title_view"
+                app:srcCompat="@drawable/ic_baseline_star_rate_24"
+                app:tint="@color/rating_star_color" />
+
+            <TextView
+                android:id="@+id/details_movie_vote_average_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/placeholder_text"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/details_movie_vote_average_star_view"
+                app:layout_constraintStart_toEndOf="@+id/details_movie_vote_average_star_view" />
+
+            <TextView
+                android:id="@+id/details_movie_vote_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/placeholder_text"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/details_movie_vote_average_view"
+                app:layout_constraintStart_toEndOf="@+id/details_movie_vote_average_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View style="@style/Divider"/>
+
+        <LinearLayout
+            style="@style/DetailsMovieSectionLayout">
+
+            <TextView
+                android:id="@+id/details_movie_website_header"
+                android:text="Website"
+                style="@style/DetailsMovieSectionHeader" />
+
+            <TextView
+                android:id="@+id/details_movie_website_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="www.google.com"
+                android:linksClickable="true"
+                android:autoLink="web"/>
+        </LinearLayout>
+
+        <View style="@style/Divider"/>
+
+        <LinearLayout style="@style/DetailsMovieSectionLayout">
+
+            <TextView
+                android:id="@+id/details_movie_duration_header"
+                android:text="Duration"
+                style="@style/DetailsMovieSectionHeader" />
+
+            <TextView
+                android:id="@+id/details_movie_duration_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120 min" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
