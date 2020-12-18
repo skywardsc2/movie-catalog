@@ -4,4 +4,12 @@
     <string name="placeholder_text">TextView</string>
     <string name="movie_release_date_format">yyyy-MM-dd</string>
     <string name="api_server_error">Server not responding correctly. Please, try again later!</string>
+    <string name="website_header">Website</string>
+    <string name="website_text">www.google.com</string>
+    <string name="duration_header">Duration</string>
+    <string name="duration_text"><![CDATA[<duration> min]]></string>
+    <string name="genres_header">Genres</string>
+    <string name="genres_text">Genre1, Genre2</string>
+    <string name="overview_header">Overview</string>
+    <string name="overview_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor rhoncus quam ac viverra. Phasellus at neque vel elit pharetra accumsan ut eget eros. Nunc in condimentum ipsum, non congue tellus. Aenean ultricies diam quis odio efficitur aliquam. Maecenas in quam posuere, sagittis mauris a, semper neque. Donec faucibus urna sed finibus tincidunt. Donec at justo sed lacus lobortis maximus eu quis purus. Quisque pellentesque, felis ut iaculis ultrices, urna nisi scelerisque urna, in laoreet quam ipsum vitae lectus. Suspendisse potenti. Sed sit amet tellus eget quam ultrices tincidunt. Suspendisse eget faucibus est, id tincidunt diam. Nulla suscipit feugiat elit id mollis. Cras pellentesque feugiat metus, sed consectetur augue consequat at. Vestibulum dapibus mattis felis id posuere. Etiam ultrices quam lectus, at commodo tortor rhoncus et.</string>
 </resources>

@@ -14,4 +14,5 @@ public class MovieDetails {
     @Json(name = "homepage") public String website;
     @Json(name = "runtime") public int duration;
     public List<String> genres;
+    public String overview;
 }

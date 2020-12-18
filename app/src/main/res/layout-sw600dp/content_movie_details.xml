@@ -89,12 +89,12 @@
 
             <TextView
                 android:id="@+id/details_movie_website_header"
-                android:text="@string/website_header"
+                android:text="Website"
                 style="@style/DetailsMovieSectionHeader" />
 
             <TextView
                 android:id="@+id/details_movie_website_text"
-                android:text="@string/website_text"
+                android:text="www.google.com"
                 android:linksClickable="true"
                 android:autoLink="web"
                 style="@style/DetailsMovieSectionText" />
@@ -107,50 +107,14 @@
 
             <TextView
                 android:id="@+id/details_movie_duration_header"
-                android:text="@string/duration_header"
+                android:text="Duration"
                 style="@style/DetailsMovieSectionHeader" />
 
             <TextView
                 android:id="@+id/details_movie_duration_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/duration_text"
-                style="@style/DetailsMovieSectionText" />
-        </LinearLayout>
-
-        <View style="@style/Divider"/>
-
-        <LinearLayout
-            style="@style/DetailsMovieSectionLayout">
-
-            <TextView
-                android:id="@+id/details_movie_genres_header"
-                android:text="@string/genres_header"
-                style="@style/DetailsMovieSectionHeader" />
-
-            <TextView
-                android:id="@+id/details_movie_genres_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/genres_text"
-                style="@style/DetailsMovieSectionText" />
-        </LinearLayout>
-
-        <View style="@style/Divider"/>
-
-        <LinearLayout
-            style="@style/DetailsMovieSectionLayout">
-
-            <TextView
-                android:id="@+id/details_movie_overview_header"
-                android:text="@string/overview_header"
-                style="@style/DetailsMovieSectionHeader" />
-
-            <TextView
-                android:id="@+id/details_movie_overview_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/overview_text"
+                android:text="120 min"
                 style="@style/DetailsMovieSectionText" />
         </LinearLayout>
 

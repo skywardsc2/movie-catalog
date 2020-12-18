@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="details_movie_poster_width">60sp</dimen>
+    <dimen name="details_movie_poster_height">90sp</dimen>
+    <dimen name="details_movie_poster_marginStart">16dp</dimen>
+    <dimen name="details_movie_poster_marginTop">8dp</dimen>
+    <dimen name="details_movie_poster_marginBottom">8dp</dimen>
+    <dimen name="details_movie_title_size">16sp</dimen>
+    <dimen name="details_movie_year">14sp</dimen>
+    <dimen name="details_movie_star_size">24dp</dimen>
+    <dimen name="details_movie_vote_average_size">16sp</dimen>
+    <dimen name="details_movie_vote_count_size">12sp</dimen>
+    <dimen name="details_movie_section_header_size">16sp</dimen>
+    <dimen name="details_movie_section_text_size">16sp</dimen>
+</resources>

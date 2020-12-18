@@ -1,5 +1,6 @@
 package com.example.moviecatalog.viewmodels;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -17,7 +18,8 @@ public class MovieOverviewListViewModel extends ViewModel {
 
     private DataRepository repository = DataRepository.getInstance();
 
-    public MovieOverviewListViewModel(){
+    public MovieOverviewListViewModel(Application application){
+        Log.d(TAG, "MovieOverviewListViewModel: created");
         observableMovieOverviewList = repository.getMovieOverviewList();
     }
 

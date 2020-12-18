@@ -1,10 +1,13 @@
 package com.example.moviecatalog.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import com.example.moviecatalog.models.MovieDetails;
 import com.example.moviecatalog.models.MovieOverview;
 import com.example.moviecatalog.network.MoviesApiInterface;
 import com.example.moviecatalog.network.MoviesApiService;
+import com.example.moviecatalog.network.Resource;
 import com.example.moviecatalog.viewmodels.MovieDetailsViewModel;
 import com.example.moviecatalog.viewmodels.MovieDetailsViewModelFactory;
 import com.example.moviecatalog.viewmodels.MovieOverviewListViewModel;
@@ -39,6 +43,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Details", "onCreate: details Activity");
         super.onCreate(savedInstanceState);
         binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -48,28 +53,30 @@ public class MovieDetailsActivity extends AppCompatActivity {
         int movieId = intent.getIntExtra(MainActivity.MOVIE_ID, 0);
 
         progressBar = binding.movieDetailsProgressBar;
+        progressBar.bringToFront();
         progressBar.setVisibility(View.VISIBLE);
 
         movieViewModel = new ViewModelProvider(this, new MovieDetailsViewModelFactory(this.getApplication(), movieId)).get(MovieDetailsViewModel.class);
 
-        movieViewModel.getMovieDetails().observe(this, movieDetails -> {
-            switch(movieDetails.status){
-                case NETWORK_ERROR:
-                    Toast.makeText(this, R.string.api_connection_error, Toast.LENGTH_LONG).show();
-                    break;
-                case SERVER_ERROR:
-                    Toast.makeText(this, R.string.api_server_error, Toast.LENGTH_LONG).show();
-                    break;
-                case SUCCESS:
-                    progressBar.setVisibility(View.GONE);
-                    if (movieDetails.data != null) {
-                        updateLayout(movieDetails.data);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        });
+        movieViewModel.getMovieDetails().observe(this, movieDetailsResource -> {
+
+                switch(movieDetailsResource.status){
+                    case NETWORK_ERROR:
+                        Toast.makeText(getApplicationContext(), R.string.api_connection_error, Toast.LENGTH_LONG).show();
+                        break;
+                    case SERVER_ERROR:
+                        Toast.makeText(getApplicationContext(), R.string.api_server_error, Toast.LENGTH_LONG).show();
+                        break;
+                    case SUCCESS:
+                        if (movieDetailsResource.data != null) {
+                            updateLayout(movieDetailsResource.data);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                progressBar.setVisibility(View.GONE);
+            });
     }
 
     private void updateLayout(MovieDetails movieDetails) {
@@ -93,5 +100,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.movieDetailsContent.detailsMovieWebsiteText.setText(movieDetails.website);
 
         binding.movieDetailsContent.detailsMovieDurationText.setText(String.format(Locale.US, "%d min", movieDetails.duration));
+
+        StringBuilder genresText = new StringBuilder();
+        String prefix = "";
+        for(String g : movieDetails.genres){
+            genresText.append(prefix);
+            prefix = ", ";
+            genresText.append(g);
+        }
+        binding.movieDetailsContent.detailsMovieGenresText.setText(genresText.toString());
+
+        binding.movieDetailsContent.detailsMovieOverviewText.setText(movieDetails.overview);
     }
 }
