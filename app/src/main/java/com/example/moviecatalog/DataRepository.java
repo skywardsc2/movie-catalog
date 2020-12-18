@@ -13,6 +13,7 @@ import com.example.moviecatalog.network.MoviesApiService;
 import com.example.moviecatalog.network.Resource;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,6 +24,7 @@ import retrofit2.Response;
 public class DataRepository {
     private static DataRepository instance;
 
+    private MutableLiveData<Boolean> isRetrievingData = new MutableLiveData<>();
     private MutableLiveData<Resource<List<MovieOverview>>> movieOverviewList = new MutableLiveData<>();
     private MutableLiveData<Resource<MovieDetails>> movieDetails = new MutableLiveData<>();
 
@@ -44,8 +46,11 @@ public class DataRepository {
         moviesApi.getMovieList().enqueue(new Callback<List<MovieOverview>>() {
             @Override
             public void onResponse(Call<List<MovieOverview>> call, Response<List<MovieOverview>> response) {
-                if(response.body() != null)
+                if(response.body() != null) {
+                    List<MovieOverview> responseList = response.body();
+                    Collections.sort(responseList);
                     movieOverviewList.setValue(Resource.success(response.body()));
+                }
             }
             @Override
             public void onFailure(Call<List<MovieOverview>> call, Throwable t) {
@@ -55,11 +60,11 @@ public class DataRepository {
                     movieOverviewList.setValue(Resource.server_error(t.getMessage(), null));
             }
         });
-
         return movieOverviewList;
     }
 
     public LiveData<Resource<MovieDetails>> getMovieDetails(int movieId) {
+        isRetrievingData.setValue(true);
         MoviesApiInterface moviesApi = MoviesApiService.getRetrofitInstance().create(MoviesApiInterface.class);
         moviesApi.getMovieDetails(movieId).enqueue(new Callback<MovieDetails>() {
             @Override
@@ -67,6 +72,7 @@ public class DataRepository {
                 if(response.body() != null){
                     movieDetails.setValue(Resource.success(response.body()));
                 }
+                isRetrievingData.setValue(false);
             }
 
             @Override
@@ -75,9 +81,13 @@ public class DataRepository {
                     movieDetails.setValue(Resource.network_error(t.getMessage(), null));
                 else
                     movieDetails.setValue(Resource.server_error(t.getMessage(), null));
+                isRetrievingData.setValue(false);
             }
         });
-
         return movieDetails;
+    }
+
+    public LiveData<Boolean> getStatus(){
+        return isRetrievingData;
     }
 }

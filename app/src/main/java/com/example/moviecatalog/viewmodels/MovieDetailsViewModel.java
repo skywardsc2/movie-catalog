@@ -15,14 +15,20 @@ import java.util.List;
 
 public class MovieDetailsViewModel extends ViewModel {
     private DataRepository repository;
+    private LiveData<Boolean> observableIsRetrievingData;
     private LiveData<Resource<MovieDetails>> observableMovieDetails;
 
     public MovieDetailsViewModel(Application application, int movieId){
         repository = DataRepository.getInstance();
         observableMovieDetails = repository.getMovieDetails(movieId);
+        observableIsRetrievingData = repository.getStatus();
     }
 
     public LiveData<Resource<MovieDetails>> getMovieDetails() {
         return observableMovieDetails;
+    }
+
+    public LiveData<Boolean> getIsRetrievingData() {
+        return observableIsRetrievingData;
     }
 }

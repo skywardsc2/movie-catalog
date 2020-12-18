@@ -2,17 +2,24 @@ package com.example.moviecatalog.adapters;
 
 import android.content.Context;
 import android.graphics.Movie;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.moviecatalog.R;
 import com.example.moviecatalog.models.MovieOverview;
 
@@ -40,6 +47,7 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
         public final TextView movieReleaseYearView;
         public final TextView movieGenresView;
         public final TextView movieVoteAverageView;
+        public final ProgressBar movieImageprogressBar;
         private final MovieOverviewAdapter adapter;
         private final OnMovieListener onMovieListener;
 
@@ -50,6 +58,7 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
             movieReleaseYearView = itemView.findViewById(R.id.movie_release_year_view);
             movieGenresView = itemView.findViewById(R.id.movie_genres_view);
             movieVoteAverageView = itemView.findViewById(R.id.movie_vote_average_view);
+            movieImageprogressBar = itemView.findViewById(R.id.movie_image_progressBar);
             this.adapter = adapter;
             this.onMovieListener = onMovieListener;
             itemView.setOnClickListener(this);
@@ -79,7 +88,23 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
             RequestOptions options = new RequestOptions()
                     .placeholder(R.drawable.ic_poster_loading)
                     .error(R.drawable.ic_poster_error);
-            Glide.with(this.context).load(current.posterUrl).apply(options).into(holder.movieImageView);
+            Glide.with(this.context)
+                    .load(current.posterUrl)
+                    .apply(options)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            holder.movieImageprogressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            holder.movieImageprogressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .into(holder.movieImageView);
 
             // Parsing da string de data de lançamento
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

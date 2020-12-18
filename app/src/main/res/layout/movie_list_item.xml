@@ -7,26 +7,35 @@
 
     <ImageView
         android:id="@+id/movie_image_view"
-        android:layout_width="120dp"
-        android:layout_height="180dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="@dimen/movie_list_poster_width"
+        android:layout_height="@dimen/movie_list_poster_height"
+        android:layout_marginStart="@dimen/movie_list_item_marginStart"
+        android:layout_marginTop="@dimen/movie_list_item_marginTop"
+        android:layout_marginBottom="@dimen/movie_list_item_marginBottom"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_poster_loading" />
 
+    <ProgressBar
+        android:id="@+id/movie_image_progressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/movie_image_view"
+        app:layout_constraintStart_toStartOf="@+id/movie_image_view"
+        app:layout_constraintTop_toTopOf="@+id/movie_image_view" />
+
     <TextView
         android:id="@+id/movie_title_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/movie_list_item_title_marginStart"
+        android:layout_marginTop="@dimen/movie_list_item_title_marginTop"
         android:fontFamily="sans-serif-black"
         android:text="@string/placeholder_text"
-        android:textSize="18sp"
+        android:textSize="@dimen/movie_list_item_title_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/movie_image_view"
@@ -35,12 +44,11 @@
 
     <ImageView
         android:id="@+id/movie_vote_average_star_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="@dimen/movie_list_item_star_size"
+        android:layout_height="@dimen/movie_list_item_star_size"
+        android:layout_marginBottom="@dimen/movie_list_item_star_marginBottom"
         app:layout_constraintBottom_toBottomOf="@+id/movie_image_view"
-        app:layout_constraintStart_toEndOf="@+id/movie_image_view"
+        app:layout_constraintStart_toStartOf="@+id/movie_title_view"
         app:srcCompat="@drawable/ic_baseline_star_rate_24"
         app:tint="@color/rating_star_color" />
 
@@ -50,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/placeholder_text"
-        android:textSize="18sp"
+        android:textSize="@dimen/movie_list_item_vote_average_size"
         app:layout_constraintBottom_toBottomOf="@+id/movie_vote_average_star_view"
         app:layout_constraintStart_toEndOf="@+id/movie_vote_average_star_view" />
 
@@ -60,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="@string/placeholder_text"
+        android:textSize="@dimen/movie_list_item_release_size"
         app:layout_constraintStart_toStartOf="@+id/movie_title_view"
         app:layout_constraintTop_toBottomOf="@+id/movie_title_view" />
 
@@ -69,6 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="TextView"
+        android:textSize="@dimen/movie_list_item_genres_size"
         app:layout_constraintStart_toStartOf="@+id/movie_title_view"
         app:layout_constraintTop_toBottomOf="@+id/movie_release_year_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

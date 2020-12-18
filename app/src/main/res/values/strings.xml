@@ -12,4 +12,5 @@
     <string name="genres_text">Genre1, Genre2</string>
     <string name="overview_header">Overview</string>
     <string name="overview_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor rhoncus quam ac viverra. Phasellus at neque vel elit pharetra accumsan ut eget eros. Nunc in condimentum ipsum, non congue tellus. Aenean ultricies diam quis odio efficitur aliquam. Maecenas in quam posuere, sagittis mauris a, semper neque. Donec faucibus urna sed finibus tincidunt. Donec at justo sed lacus lobortis maximus eu quis purus. Quisque pellentesque, felis ut iaculis ultrices, urna nisi scelerisque urna, in laoreet quam ipsum vitae lectus. Suspendisse potenti. Sed sit amet tellus eget quam ultrices tincidunt. Suspendisse eget faucibus est, id tincidunt diam. Nulla suscipit feugiat elit id mollis. Cras pellentesque feugiat metus, sed consectetur augue consequat at. Vestibulum dapibus mattis felis id posuere. Etiam ultrices quam lectus, at commodo tortor rhoncus et.</string>
+    <string name="loading_text">…</string>
 </resources>

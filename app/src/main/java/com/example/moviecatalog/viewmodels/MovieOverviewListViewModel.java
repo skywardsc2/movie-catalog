@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.moviecatalog.DataRepository;
@@ -13,13 +14,11 @@ import com.example.moviecatalog.network.Resource;
 import java.util.List;
 
 public class MovieOverviewListViewModel extends ViewModel {
-    private static final String TAG = MovieOverviewListViewModel.class.getName();
     private LiveData<Resource<List<MovieOverview>>> observableMovieOverviewList;
 
     private DataRepository repository = DataRepository.getInstance();
 
     public MovieOverviewListViewModel(Application application){
-        Log.d(TAG, "MovieOverviewListViewModel: created");
         observableMovieOverviewList = repository.getMovieOverviewList();
     }
 

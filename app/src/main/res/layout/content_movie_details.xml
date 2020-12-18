@@ -27,14 +27,23 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_poster_loading" />
+                app:srcCompat="@drawable/ic_poster_loading"/>
+
+            <ProgressBar
+                android:id="@+id/details_movie_poster_bar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/details_movie_poster_view"
+                app:layout_constraintEnd_toEndOf="@+id/details_movie_poster_view"
+                app:layout_constraintStart_toStartOf="@+id/details_movie_poster_view"
+                app:layout_constraintTop_toTopOf="@+id/details_movie_poster_view" />
 
             <TextView
                 android:id="@+id/details_movie_title_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@string/placeholder_text"
+                android:text="@string/loading_text"
                 android:textSize="@dimen/details_movie_title_size"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/placeholder_text"
+                android:text="@string/loading_text"
                 android:textSize="@dimen/details_movie_year"
                 app:layout_constraintStart_toStartOf="@+id/details_movie_title_view"
                 app:layout_constraintTop_toBottomOf="@+id/details_movie_title_view" />
@@ -65,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@string/placeholder_text"
+                android:text="@string/loading_text"
                 android:textSize="@dimen/details_movie_vote_average_size"
                 app:layout_constraintBottom_toBottomOf="@+id/details_movie_vote_average_star_view"
                 app:layout_constraintStart_toEndOf="@+id/details_movie_vote_average_star_view" />
@@ -75,9 +84,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@string/placeholder_text"
+                android:text="@string/loading_text"
                 android:textSize="@dimen/details_movie_vote_count_size"
-                app:layout_constraintBottom_toBottomOf="@+id/details_movie_vote_average_view"
+                app:layout_constraintBaseline_toBaselineOf="@id/details_movie_vote_average_view"
                 app:layout_constraintStart_toEndOf="@+id/details_movie_vote_average_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,7 +103,7 @@
 
             <TextView
                 android:id="@+id/details_movie_website_text"
-                android:text="@string/website_text"
+                android:text="@string/loading_text"
                 android:linksClickable="true"
                 android:autoLink="web"
                 style="@style/DetailsMovieSectionText" />
@@ -114,7 +123,7 @@
                 android:id="@+id/details_movie_duration_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/duration_text"
+                android:text="@string/loading_text"
                 style="@style/DetailsMovieSectionText" />
         </LinearLayout>
 
@@ -132,7 +141,7 @@
                 android:id="@+id/details_movie_genres_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/genres_text"
+                android:text="@string/loading_text"
                 style="@style/DetailsMovieSectionText" />
         </LinearLayout>
 
@@ -150,7 +159,7 @@
                 android:id="@+id/details_movie_overview_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/overview_text"
+                android:text="@string/loading_text"
                 style="@style/DetailsMovieSectionText" />
         </LinearLayout>
 

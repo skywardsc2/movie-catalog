@@ -33,72 +33,57 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/*
+* Activity para a lista de filmes
+* */
 public class MainActivity extends AppCompatActivity implements MovieOverviewAdapter.OnMovieListener {
     public static final String MOVIE_ID = "MOVIE_ID";
-    private static final String RECYCLER_VIEW_STATE_KEY = "RECYCLER_VIEW_STATE";
-    private MainActivity activity = this;
-
-    private MovieOverviewListViewModel movieListViewModel;
+    private final MainActivity activity = this;
 
     private ActivityMainBinding viewBinding;
-    private ProgressBar progressBar;
-
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
+
+    private ProgressBar progressBar;
     private MovieOverviewAdapter movieOverviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(viewBinding.getRoot());
+        View view = viewBinding.getRoot();
+        setContentView(view);
 
         progressBar = viewBinding.mainProgressBar;
         progressBar.setVisibility(View.VISIBLE);
 
         recyclerView = viewBinding.mainContent.recyclerView;
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView.addItemDecoration(new DividerItemDecoration(activity,
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
+        movieOverviewAdapter = new MovieOverviewAdapter(this, this);
+        recyclerView.setAdapter(movieOverviewAdapter);
 
-        movieListViewModel = new ViewModelProvider(this, new MovieOverviewListViewModelFactory(getApplication())).get(MovieOverviewListViewModel.class);
+        // Gera ViewModel para a lista de filmes
+        MovieOverviewListViewModel movieListViewModel = new ViewModelProvider(this, new MovieOverviewListViewModelFactory(getApplication())).get(MovieOverviewListViewModel.class);
 
-        movieListViewModel.getMovieOverviewList().observe(this, new Observer<Resource<List<MovieOverview>>>() {
-            @Override
-            public void onChanged(Resource<List<MovieOverview>> listResource) {
-                Log.d("MainActivity", "onChanged: MovieList changed");
-                movieOverviewAdapter = new MovieOverviewAdapter(activity, activity);
+        /*Cria Observer para o LiveData do ViewModel da lista de filmes e atualiza a
+            UI de acordo*/
+        movieListViewModel.getMovieOverviewList().observe(this, listResource -> {
+            if(!listResource.data.isEmpty()){
                 switch(listResource.status){
                     case NETWORK_ERROR:
                         Toast.makeText(activity, R.string.api_connection_error, Toast.LENGTH_LONG).show();
                         break;
                     case SERVER_ERROR:
-                        Toast.makeText(activity, "Server not responding correctly. Please, try again later!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, R.string.api_server_error, Toast.LENGTH_LONG).show();
                     case SUCCESS:
                         progressBar.setVisibility(View.GONE);
                         movieOverviewAdapter.setMovieOverviewList(listResource.data);
                     default:
                         break;
                 }
-                recyclerView.setAdapter(movieOverviewAdapter);
             }
         });
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        int lastFirstVisiblePosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        outState.putInt(RECYCLER_VIEW_STATE_KEY, lastFirstVisiblePosition);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        int lastFirstVisiblePosition = savedInstanceState.getInt(RECYCLER_VIEW_STATE_KEY);
-        ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPosition(lastFirstVisiblePosition);
     }
 
     @Override
