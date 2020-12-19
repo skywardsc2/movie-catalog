@@ -45,7 +45,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         int movieId = intent.getIntExtra(MainActivity.MOVIE_ID, 0);
 
         progressBar = viewBinding.movieDetailsProgressBar;
-//        progressBar.setVisibility(View.VISIBLE);
 
         // Gera ViewModel para os detalhes do filme escolhido
         MovieDetailsViewModel movieViewModel = new ViewModelProvider(this, new MovieDetailsViewModelFactory(this.getApplication(), movieId)).get(MovieDetailsViewModel.class);
@@ -55,16 +54,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
             switch(movieDetailsResource.status){
                 case NETWORK_ERROR:
                     Toast.makeText(getApplicationContext(), R.string.api_connection_error, Toast.LENGTH_LONG).show();
-//                    progressBar.setVisibility(View.GONE);
                     break;
                 case SERVER_ERROR:
                     Toast.makeText(getApplicationContext(), R.string.api_server_error, Toast.LENGTH_LONG).show();
-//                    progressBar.setVisibility(View.GONE);
                     break;
                 case SUCCESS:
                     if (movieDetailsResource.data != null) {
                         updateLayout(movieDetailsResource.data);
-//                        progressBar.setVisibility(View.GONE);
                     }
                     break;
                 default:

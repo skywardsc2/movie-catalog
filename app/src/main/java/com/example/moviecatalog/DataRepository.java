@@ -30,6 +30,7 @@ public class DataRepository {
 
     private DataRepository(){ }
 
+    // Implementa singleton
     public static DataRepository getInstance() {
         if (instance == null) {
             synchronized (DataRepository.class) {
@@ -42,6 +43,7 @@ public class DataRepository {
     }
 
     public LiveData<Resource<List<MovieOverview>>> getMovieOverviewList() {
+        // Requisição pela lista de filmes
         MoviesApiInterface moviesApi = MoviesApiService.getRetrofitInstance().create(MoviesApiInterface.class);
         moviesApi.getMovieList().enqueue(new Callback<List<MovieOverview>>() {
             @Override
@@ -64,6 +66,7 @@ public class DataRepository {
     }
 
     public LiveData<Resource<MovieDetails>> getMovieDetails(int movieId) {
+        // Requisição pelas informações de determinado filme
         isRetrievingData.setValue(true);
         MoviesApiInterface moviesApi = MoviesApiService.getRetrofitInstance().create(MoviesApiInterface.class);
         moviesApi.getMovieDetails(movieId).enqueue(new Callback<MovieDetails>() {

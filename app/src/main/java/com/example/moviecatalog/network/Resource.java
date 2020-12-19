@@ -3,6 +3,9 @@ package com.example.moviecatalog.network;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/*
+* Wrapper contendo a resposta e o status da requisição à API
+* */
 public class Resource<T> {
     @NonNull
     public final Status status;

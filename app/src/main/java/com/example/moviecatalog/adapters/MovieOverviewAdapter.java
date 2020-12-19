@@ -28,6 +28,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
+/*
+* Adapter para os elementos do RecyclerView da MainActivity
+* */
 public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdapter.MovieViewHolder> {
     private final LayoutInflater inflater;
     private List<MovieOverview> movieOverviewList;
@@ -113,6 +116,7 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
             int year = releaseDate.getYear();
             holder.movieReleaseYearView.setText(String.format(Locale.US, "%d", year));
 
+            // String de generos
             StringBuilder genresText = new StringBuilder();
             String prefix = "";
             for(String g : current.genres){
@@ -121,7 +125,7 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
                 genresText.append(g);
             }
             holder.movieGenresView.setText(genresText.toString());
-
+            // String de avaliação
             holder.movieVoteAverageView.setText(String.format(Locale.US, "%.1f/10", current.voteAverage));
         }
     }
